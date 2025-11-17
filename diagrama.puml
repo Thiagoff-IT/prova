@@ -1,0 +1,117 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+abstract class Pessoa {
+    - nome : string
+    - cpf : string
+}
+class Cliente {
+    - listaEstabelecimentosFavoritos : map<string, double>
+    + imprimirListaDeEstabelecimentosFavoritos() : void
+}
+class Gerente {
+    - carteira : Carteira*
+}
+Pessoa <|-- Cliente
+Pessoa <|-- Gerente
+class Carteira {
+    + calcularVolumeGerenciado() : double
+}
+Gerente "1" -- "1" Carteira
+Carteira "1" o-- "*" Conta
+abstract class Conta {
+    - numero : string
+    - saldo : double
+    - investimentos : vector<Investimento*>
+    - cartões : vector<Cartao*>
+    + calcularRendimentos(dias: int) : double
+    + calcularPontos() : int
+}
+class ContaCorrente {
+    + calcularRendimentos(dias: int) : double
+}
+class ContaPoupanca {
+    + calcularRendimentos(dias: int) : double
+}
+Conta <|-- ContaCorrente
+Conta <|-- ContaPoupanca
+Conta "1" -- "1..2" Cliente : correntista
+class Extrato {
+    - movimentações : vector<Movimentacao*>
+    + imprimir() : void
+}
+class Movimentacao {
+    - data : Data
+    - valor : double
+}
+Conta "1" *-- "2" Extrato
+Extrato "1" o-- "*" Movimentacao
+Movimentacao --> Calendario : referencia
+abstract class Investimento {
+    - saldoAtual : double
+    - dataInicio : Data
+    + atualizarSaldo() : void
+}
+class CDB {
+    - taxaDiariaPercentualDI : double
+    - saldoLiquido : double
+    - dataVencimento : Data
+    + atualizarSaldo() : void
+}
+class LCI {
+    - taxaDiariaPercentualDI : double
+    - dataVencimento : Data
+    + atualizarSaldo() : void
+}
+Investimento <|-- CDB
+Investimento <|-- LCI
+Investimento --> MercadoFinanceiro : utiliza
+Conta "1" o-- "*" Investimento
+abstract class Cartao {
+    - historicoFaturas : HistoricoFaturas
+    - limiteCredito : double
+    - valorDevido : double
+    + calcularPontuacao(valorGasto: double) : int
+}
+class Black {
+    + calcularPontuacao(valorGasto: double) : int
+}
+class Platinum {
+    + calcularPontuacao(valorGasto: double) : int
+}
+Cartao <|-- Black
+Cartao <|-- Platinum
+Conta "1" o-- "*" Cartao
+class HistoricoFaturas {
+    - faturas : vector<Fatura*>
+}
+class Fatura {
+    - compras : vector<Compra*>
+    + calcularTotal() : double
+    + imprimir() : void
+}
+class Compra {
+    - estabelecimento : string
+    - data : Data
+    - valor : double
+}
+Cartao "1" o-- "1" HistoricoFaturas
+HistoricoFaturas "1" o-- "*" Fatura
+Fatura "1" o-- "*" Compra
+class MercadoFinanceiro {
+    {static} - TR : double
+    {static} - DI : double
+    {static} + getTR() : double
+    {static} + getDI() : double
+}
+class Calendario {
+    {static} + diasDesde(data: Data) : int
+    {static} + dataPassou(data: Data) : bool
+}
+MercadoFinanceiro --> Calendario : utiliza
+class Data {
+    - dia : int
+    - mes : int
+    - ano : int
+}
+@enduml
