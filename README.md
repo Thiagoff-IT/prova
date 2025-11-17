@@ -86,9 +86,5 @@ conta->cartoes.push_back(cartao);
 
 Veja `diagrama.puml` para a representação UML do projeto.
 
-## Notas
+![Diagrama UML](./fLVDRjj64BuBq3iiV8bYmsxQtemq3KrIBW7zWMADNbVaEbs4ughBfH0apQ6d0hdd6Ve4VGAzM6UuIt79LGtHqS6YPsVdvvkPZwEtfQ9ILTjyF2hVys979TsIDATbwIab-QPIB4f5iUOV6Nar7er7ByXFJtzGnPzvwtMu9dVUEZphodX4DwMID5NQELcniXIKV1gF27okII6sZDmIqE75kqQ.png)
 
-- Todos os headers estão em `include/`
-- Todas as implementações estão em `src/`
-- Use `-I include` para compilação com includes relativos
-- O projeto usa `shared_ptr` para gerenciamento automático de memória
