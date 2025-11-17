@@ -2,7 +2,6 @@
 #include "../include/calendario.h"
 
 void Investimento::atualizarSaldo() {
-    /* genérico */
 }
 
 void CDB::atualizarSaldo() {

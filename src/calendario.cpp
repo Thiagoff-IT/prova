@@ -28,7 +28,6 @@ bool Calendario::dataPassou(const Data& dt) {
     return difftime(now, then) > 0;
 }
 
-// valores default de exemplo
 double MercadoFinanceiro::TR = 0.002;
 double MercadoFinanceiro::DI = 0.01;
 
